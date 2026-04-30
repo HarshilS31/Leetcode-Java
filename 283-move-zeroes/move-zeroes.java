@@ -1,5 +1,4 @@
-class Solution {
- //SOLVED BY HARSHIL   
+class Solution {  
     public void moveZeroes(int[] nums) {
         int n = nums.length;
         int temp=0;
