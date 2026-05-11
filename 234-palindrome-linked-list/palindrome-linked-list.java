@@ -10,47 +10,28 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        if(head == null || head.next == null) return true;
-        
-        ListNode s = head;
-        ListNode f = head;
-        while(f != null && f.next != null) {
-            s = s.next;
-            f = f.next.next;
+        ListNode slow=head;
+        ListNode fast=head;
+        while(fast!=null && fast.next!=null) {
+            slow=slow.next;
+            fast=fast.next.next;
         }
-        
-        ListNode prev = null;
-        ListNode curr = s;
-        while(curr != null) {
-            ListNode fwd = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = fwd;
+        ListNode curr=slow;
+        ListNode prev=null;
+        while(curr!=null) {
+            ListNode Next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=Next;
         }
-        
-        ListNode checker = head;
-        ListNode checker2 = prev;
-        
-        while(checker2 != null) {
-            if(checker.val != checker2.val) return false;
-            checker = checker.next;
-            checker2 = checker2.next;
+        ListNode left=head;
+        ListNode right=prev;
+        while(right!=null) {
+            if(right.val!=left.val) return false;
+            left=left.next;
+            right=right.next;
         }
-        
         return true;
+ 
     }
 }
-        //List<Integer> check=new ArrayList<>();
-        //List<Integer> check2=new ArrayList<>();
-        //ListNode temp=head;
-        //while(temp!=null) {
-        //    check.add(temp.val);
-        //    temp=temp.next;
-        //}
-        //for(int i=check.size()-1;i>0;i--) {
-        //    check2.add(check.get(i));
-        //}
-        //for(int i=0;i<check.size()-1;i++) {
-        //    if (check.get(i)!=check2.get(i)) return false;
-        //}
-        //return true;
