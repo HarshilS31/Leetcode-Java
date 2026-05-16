@@ -5,9 +5,7 @@ class Solution {
         int lo=0;
         while(hi>lo) {
             int mid=lo+(hi-lo)/2;
-            if(nums[mid]>nums[hi]) {
-                lo=mid+1;
-            }
+            if(nums[mid]>nums[hi]) lo=mid+1;
             else if(nums[mid]<nums[hi]) hi=mid;
             else hi--;
 
