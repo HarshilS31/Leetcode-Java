@@ -1,20 +1,26 @@
 class Solution {
-    public List<List<Integer>> combinationSum(int[] nums, int target) {
+    public List<List<Integer>> combinationSum(int[] nums, int target) { 
         List<List<Integer>> ans = new ArrayList<>();
         List<Integer> arr= new ArrayList<>();
-        combinations(ans,nums,target,arr,0);
-        return ans;
-        
+
+        findSubsets(nums,ans,arr,target,0);
+        return ans; 
     }
-    void combinations(List<List<Integer>> ans,int[] nums, int target,List<Integer> arr,int idx) {
+
+    void findSubsets(int[] nums,List<List<Integer>> ans,List<Integer> arr,int target,int idx) {
         if(target==0) {
             ans.add(new ArrayList<>(arr));
             return;
         }
-        if (idx==nums.length || target <0 ) return;
-        arr.add(nums[idx]);
-            combinations(ans,nums,target-nums[idx],arr,idx);
+        
+        if(idx==nums.length || target<0) return;
+         
+        if(nums[idx]<=target) {
+            arr.add(nums[idx]);
+            findSubsets(nums,ans,arr,target-nums[idx],idx);
             arr.remove(arr.size()-1);
-            combinations(ans,nums,target,arr,idx+1);
+
+        }
+        findSubsets(nums,ans,arr,target,idx+1);
     }
 }
