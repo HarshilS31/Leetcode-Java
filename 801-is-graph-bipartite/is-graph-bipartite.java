@@ -15,12 +15,15 @@ class Solution {
     boolean dfs(int[][] graph,int[] colored,int idx,int color) {
         colored[idx]=color;
         for(int node:graph[idx]) {
-            if(colored[idx]==colored[node]) return false;
+            if(colored[node]==colored[idx]) return false;
             if(colored[node]==-1) {
-                if(!dfs(graph,colored,node,1-colored[idx])) return false;
+                if(!dfs(graph,colored,node,1-color)) return false;
+
             }
+
         }
         return true;
+
     }
     // boolean bfs(int[][] graph,int[] colored,int idx) {
     //     Queue<Integer> q = new LinkedList<>();
