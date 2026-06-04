@@ -11,13 +11,11 @@ class Solution {
     
     void dfs(List<List<Integer>> rooms,boolean[] visited,int idx){
         visited[idx]=true;
-        List<Integer> room=rooms.get(idx);
-        for(int key:room) {
-            if(!visited[key]) {
-                visited[key]=true;
-                dfs(rooms,visited,key);
-            }
+        for(int key:rooms.get(idx)) {
+            if(!visited[key]) dfs(rooms,visited,key);
         }
+
+
 
     }
 }
