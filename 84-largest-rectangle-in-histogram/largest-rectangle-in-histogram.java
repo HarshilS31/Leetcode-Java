@@ -1,9 +1,9 @@
 class Solution {
-    static{
-        for(int i=0;i<1000;i++){
-            largestRectangleArea(new int[] {i});
-        }
-    }
+    // static{
+    //     for(int i=0;i<1000;i++){
+    //         largestRectangleArea(new int[] {i});
+    //     }
+    // }
     public static int largestRectangleArea(int[] heights) {
         int n=heights.length;
         int[] stack=new int[n+1];
