@@ -9,8 +9,9 @@ class Solution {
                 count=0;
             }
         }
+        maxCount=count>maxCount? count:maxCount;
 
-        return Math.max(count,maxCount);
+        return maxCount;
         
     }
 }
