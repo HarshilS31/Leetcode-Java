@@ -1,4 +1,5 @@
 class Solution {
+    //count subarrays with <=k and <=k-1
     public int numberOfSubarrays(int[] nums, int k) {
         return niceSubArrays(nums,k)-niceSubArrays(nums,k-1);
     }
@@ -7,16 +8,11 @@ class Solution {
         int count=0;
         int oddNums=0;
         for(int right=0;right<nums.length;right++) {
-            if(nums[right]%2==1) oddNums++;
+            if(nums[right]%2==1) oddNums++;  
             while(oddNums>k) {
-                if(nums[left]%2!=0) {
-                    oddNums-- ;
-                    
-                }
-                left++;
-
+                if(nums[left++]%2==1) oddNums--; 
             }
-            count+=right-left+1;
+            count+=+right-left+1;    
         }
         return count;
     }
