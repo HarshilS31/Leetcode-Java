@@ -1,4 +1,13 @@
+class Pair{
+    String word;
+    int level;
+    Pair(String word, int level){
+        this.word=word;
+        this.level=level;
+    }
+}
 class Solution {
+
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         LinkedList<Pair> queue = new LinkedList<>();
         Set<String> wordSet = new HashSet<>(wordList);
@@ -21,11 +30,4 @@ class Solution {
         return 0;
     }
 }
-class Pair{
-    String word;
-    int level;
-    Pair(String word, int level){
-        this.word=word;
-        this.level=level;
-    }
-}
+
