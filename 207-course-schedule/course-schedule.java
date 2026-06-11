@@ -22,10 +22,11 @@ class Solution {
 
     private boolean hasCycle(List<Integer>[] adj, int[] state, int curr) {
         state[curr] = 1;
-        for(int next:adj[curr]) {
-            if(state[next]==1) return true;
-            else if(state[next]==0) {
-                if(hasCycle(adj,state,next)) return true;
+        for(int node:adj[curr]) {
+            if(state[node]==1) return true;
+            else if(state[node]==0) {
+                if (hasCycle(adj,state,node)) return true;
+
             }
         }
         state[curr]=2;
