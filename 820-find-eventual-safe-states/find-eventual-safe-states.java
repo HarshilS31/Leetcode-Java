@@ -16,10 +16,5 @@ class Solution {
         }
         status[currNode]=2;
         return true;
-
-
-
-
- 
     }
 }
