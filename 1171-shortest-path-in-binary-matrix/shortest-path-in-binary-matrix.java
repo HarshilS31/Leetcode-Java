@@ -26,8 +26,6 @@ class Solution {
             if (d > dist[r][c]) {
                 continue;
             }
-            
-            // Explore all 8 directions
             for (int[] dir : directions) {
                 int newR = r + dir[0];
                 int newC = c + dir[dir.length - 1]; 
