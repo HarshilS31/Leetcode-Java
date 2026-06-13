@@ -16,8 +16,9 @@ class Solution {
                 freq[nums[left]]--;
                 if(freq[nums[left]]==0) unique--;
                 left++;
-            }
-            count+=right-left+1;
+            }count+=right-left+1;
+            
+     
 
         }
         return count;
