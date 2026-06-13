@@ -8,12 +8,12 @@ class Solution {
             if(nums[right]==0) {
                 zeroes++;
             }
-            while(zeroes>k)  {
+            while(zeroes>k) {
                 if(nums[left]==0) zeroes--;
                 left++;
             }
             int len=right-left+1;
-            maxLen =len>maxLen ? len:maxLen;
+            maxLen=len > maxLen ? len:maxLen;
         }
         return maxLen;
         
