@@ -30,12 +30,13 @@ class Solution {
             int time=front.time;
             if(time>ans[node]) continue;
             for(Pair p:adj.get(node)) {
-                int totalTime = time+p.time;
-                if(totalTime<ans[p.node]) {
-                    ans[p.node]=totalTime;
-                    pq.add(new Pair(p.node,totalTime));
+                int t=p.time+time;
+                if(t<ans[p.node]) {
+                    ans[p.node]=t;
+                    pq.add(new Pair(p.node,t));
                 }
             }
+
         }
         int max=Integer.MIN_VALUE;
         for(int i=1;i<=n;i++) {
