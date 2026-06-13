@@ -9,14 +9,8 @@ class Solution {
             while(freq['a'-'a']>0  && freq['b'-'a']>0 && freq['c'-'a']>0) {
                 count+=s.length()-right;
                 freq[s.charAt(left++)-'a']--;
-
-
             }
-
-            
         }
         return count;
-        
-
     }
 }
