@@ -13,6 +13,8 @@ class Solution {
             int diff=top[0];
             int x=top[1];
             int y=top[2];
+            if(diff> ans[x][y]) continue;
+            if(x==m-1 && y==n-1) return ans[x][y];
             for(int[] d:directions) {
                 int x1=x+d[0];
                 int y1=y+d[1];
