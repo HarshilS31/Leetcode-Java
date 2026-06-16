@@ -14,15 +14,15 @@ class Solution {
         if(i<0 || j<0 || i>=board.length || j>=board[0].length || board[i][j]=='$' || board[i][j]!=word.charAt(idx)) return false;
         char temp=board[i][j];
         board[i][j]='$';
-        for(int[] dir:directions) {
-            int i1=i+dir[0];
-            int j1=j+dir[1];
-            if (search(board,word,idx+1,i1,j1)) return true;  
-             
+        for(int[] d:directions) {
+            int i1=i+d[0];
+            int j1=j+d[1];
+            if(search(board,word,idx+1,i1,j1)) return true;
         }
         board[i][j]=temp;
         return false;
-    
     }
+    
+
     
 }
