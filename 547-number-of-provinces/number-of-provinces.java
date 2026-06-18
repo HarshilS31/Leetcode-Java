@@ -15,12 +15,11 @@ class Solution {
         int n=adj.length;
         visited[idx]=true;
         for(int j=0;j<n;j++) {
-            if(adj[idx][j]==1  && !visited[j]) {
+            if(adj[idx][j]==1 && !visited[j]) {
                 dfs(adj,visited,j);
-
             }
-        
         }
+
 
     }
 }
