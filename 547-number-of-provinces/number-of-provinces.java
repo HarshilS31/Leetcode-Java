@@ -39,7 +39,7 @@ class Solution {
     }
     public static int find(int node,int[] parent) {
         if(node==parent[node]) return node;
-        return find(parent[node],parent);
+        return parent[node] = find(parent[node],parent);
 
     }
 }
