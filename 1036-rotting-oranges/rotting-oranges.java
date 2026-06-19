@@ -4,7 +4,6 @@ class Solution {
         int n = grid.length;
         int m = grid[0].length;
         int fresh = 0;
-
         Queue<int[]> q = new LinkedList<>();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -12,16 +11,13 @@ class Solution {
                 if (grid[i][j] == 1) fresh++;
             }
         }
-
         int[][] directions = {{0,1},{0,-1},{1,0},{-1,0}};
-
         while (q.size() > 0) {
             int[] top = q.poll();
             int x = top[0];
             int y = top[1];
             int t = top[2];
-            time = t > time ? t : time;
-
+            time = Math.max(t,time);
             for (int[] d : directions) {
                 int x1 = x + d[0];
                 int y1 = y + d[1];
