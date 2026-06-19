@@ -1,44 +1,32 @@
-import java.util.PriorityQueue;
-import java.util.Arrays;
-
 class Solution {
     public int shortestPathBinaryMatrix(int[][] grid) {
-        int n = grid.length;
-        if (grid[0][0] == 1 || grid[n - 1][n - 1] == 1) {
-            return -1;
-        }
-        int[][] dist = new int[n][n];
-        for (int[] row : dist) {
-            Arrays.fill(row, Integer.MAX_VALUE);
-        }
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
-        dist[0][0] = 1;
-        pq.offer(new int[]{1, 0, 0});
-        int[][] directions = {{-1, -1},{-1, 0},{-1, 1},{1, -1},{1, 0},{1, 1},{0, -1},{0, 1}};
-        while (!pq.isEmpty()) {
-            int[] current = pq.poll();
-            int d = current[0];
-            int r = current[1];
-            int c = current[2];
-            if (r == n - 1 && c == n - 1) {
-                return d;
-            }
-            if (d > dist[r][c]) {
-                continue;
-            }
-            for (int[] dir : directions) {
-                int newR = r + dir[0];
-                int newC = c + dir[dir.length - 1]; 
-                if (newR >= 0 && newR < n && newC >= 0 && newC < n && grid[newR][newC] == 0) {
-                    int nextDist = d + 1;
-                    if (nextDist < dist[newR][newC]) {
-                        dist[newR][newC] = nextDist;
-                        pq.offer(new int[]{nextDist, newR, newC});
+        int n= grid.length;
+        if(grid[0].length==1 && grid[0][0]==0) return 1; 
+        if (grid[0][0] == 1 || grid[n - 1][n - 1] == 1) return -1;
+        int[][] distance = new int[n][n];
+        for(int i=0;i<n;i++) Arrays.fill(distance[i],Integer.MAX_VALUE);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->Integer.compare(a[2],b[2]));
+        int[][] directions ={{0,1},{0,-1},{1,0},{-1,0},{1,1},{1,-1},{-1,1},{-1,-1}};
+        pq.add(new int[]{0,0,1});
+        while(pq.size()>0) {
+            int[] top = pq.poll();
+            int x=top[0];
+            int y=top[1];
+            int d=top[2];
+            for(int[] dir:directions) {
+                int x1=x+dir[0];
+                int y1=y+dir[1];
+                
+                if(x1>=0 && y1>=0 && x1<n && y1<n && grid[x1][y1]==0) {
+                    int dist=d+1;
+                    if(distance[x1][y1]>dist) {
+                        distance[x1][y1]=dist;
+                        pq.add(new int[]{x1,y1,dist});
                     }
+                    
                 }
             }
         }
-        
-        return -1;
+        return distance[n-1][n-1]== Integer.MAX_VALUE ? -1:distance[n-1][n-1];    
     }
 }
