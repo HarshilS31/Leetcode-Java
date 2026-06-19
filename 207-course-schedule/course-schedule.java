@@ -21,15 +21,16 @@ class Solution {
     }
 
     private boolean hasCycle(List<Integer>[] adj, int[] state, int curr) {
-        state[curr] = 1;
+        state[curr]=1;
         for(int node:adj[curr]) {
             if(state[node]==1) return true;
             else if(state[node]==0) {
-                if (hasCycle(adj,state,node)) return true;
-
+                if(hasCycle(adj,state,node)) return true;
             }
         }
         state[curr]=2;
         return false;
+
+
     }
 }
