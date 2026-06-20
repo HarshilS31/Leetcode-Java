@@ -2,7 +2,6 @@ class Solution {
     public int findTheCity(int n, int[][] edges, int distanceThreshold) {
         int INF = (int) 1e7;
         int[][] sd = new int[n][n];
-
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i == j) {
