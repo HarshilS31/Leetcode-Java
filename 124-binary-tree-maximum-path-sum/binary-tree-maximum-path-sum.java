@@ -1,19 +1,16 @@
- class Solution {
-    static int max;
-    public int linearSum(TreeNode root) { 
-        if(root==null) return 0;
-        int rightLine=linearSum(root.right);
-        int leftLine=linearSum(root.left);
-        int pathSum=root.val;
-        if(leftLine>0) pathSum+=leftLine;      
-        if(rightLine>0) pathSum+=rightLine;
-        max=Math.max(max,pathSum);
-        return root.val+Math.max(0,Math.max(rightLine,leftLine));
+class Solution {
+    int maxSum=Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        findMaxSum(root);
+        return maxSum;
+        
     }
-
-    public int maxPathSum(TreeNode root) { 
-        max=Integer.MIN_VALUE;
-        linearSum(root);
-        return max;  
+    public int findMaxSum(TreeNode node) {
+        if(node==null) return 0;
+        int leftSum=Math.max(0,findMaxSum(node.left));
+        int rightSum=Math.max(0,findMaxSum(node.right));
+        int totalSum=node.val+leftSum+rightSum;
+        maxSum=Math.max(maxSum,totalSum);
+        return node.val+Math.max(leftSum,rightSum);
     }
 }
