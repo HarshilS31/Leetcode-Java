@@ -1,39 +1,28 @@
-class Pair{
-    Node node;
-    int dist;
-    Pair(Node node,int dist) {
-        this.node=node;
-        this.dist=dist;
-    }
-    
-}
-
 class Solution {
+    static class Pair {
+        Node node;
+        int hd;
+        Pair(Node node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
     public ArrayList<Integer> bottomView(Node root) {
         ArrayList<Integer> ans = new ArrayList<>();
-        HashMap<Integer,Integer> map= new HashMap<>();//HashMap<Horizontal Distance,Data>
-        Queue<Pair> q= new LinkedList<>();
-        q.add(new Pair(root,0));
-        int minDist=Integer.MAX_VALUE;
-        int maxDist=Integer.MIN_VALUE;
-        
-        while(q.size()>0) {
-            Pair front =q.remove();
-            Node node =front.node;
-            int level=front.dist;
-            minDist=Math.min(level,minDist);
-            maxDist=Math.max(level,maxDist); 
-            map.put(level,node.data);
-            if(node.left!=null) q.add(new Pair(node.left,level-1));
-            if(node.right!=null) q.add(new Pair(node.right,level+1));
-   
+        if (root == null) return ans;
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(root, 0));
+
+        while (!q.isEmpty()) {
+            Pair curr = q.poll();
+
+            map.put(curr.hd, curr.node.data);
+
+            if (curr.node.left != null)  q.add(new Pair(curr.node.left,  curr.hd - 1));
+            if (curr.node.right != null) q.add(new Pair(curr.node.right, curr.hd + 1));
         }
-        for(int i=minDist;i<=maxDist;i++) {
-            ans.add(map.get(i));
-            
-        }
+        ans.addAll(map.values());
         return ans;
-       
-        
     }
 }
