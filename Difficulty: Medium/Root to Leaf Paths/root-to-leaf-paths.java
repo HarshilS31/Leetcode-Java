@@ -1,35 +1,24 @@
-
-
 class Solution {
-    public static ArrayList<ArrayList<Integer>> Paths(Node root) {
-        ArrayList<ArrayList<Integer>> ans= new ArrayList<>();
-        ArrayList<Integer> arr = new ArrayList<>();
-        dfs(root,arr,ans);
-        return ans;
-        
-        
-         
-
-        
+    public ArrayList<ArrayList<Integer>> Paths(Node root) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        findPaths(root, new ArrayList<>(), result);
+        return result;
     }
-    public static void dfs(Node root, ArrayList<Integer> arr,ArrayList<ArrayList<Integer>> ans) {
-        if(root==null) return;
-        if(root.left==null && root.right==null) {
-            arr.add(root.data);
-            ArrayList<Integer> list= new ArrayList<>();
-            list.addAll(arr);
-            ans.add(list);
-            arr.remove(arr.size()-1);
-            
+
+    private void findPaths(Node node, ArrayList<Integer> currentPath, ArrayList<ArrayList<Integer>> result) {
+        if (node==null) return;
+        currentPath.add(node.data);
+        if(node.left==null && node.right==null) {
+            result.add(new ArrayList<>(currentPath));
+        }
+        else {
+            findPaths(node.left,currentPath,result);
+            findPaths(node.right,currentPath,result);
             
         }
-        arr.add(root.data);
-        dfs(root.left,arr,ans);
-        dfs(root.right,arr,ans);
-        arr.remove(arr.size()-1);//BackTracking!
-       
+        currentPath.remove(currentPath.size()-1);
         
-        
-        
+    
+
     }
 }
