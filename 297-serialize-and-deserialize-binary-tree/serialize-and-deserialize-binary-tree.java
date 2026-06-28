@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Codec {
     public String serialize(TreeNode root) {
         if (root == null) return "";
