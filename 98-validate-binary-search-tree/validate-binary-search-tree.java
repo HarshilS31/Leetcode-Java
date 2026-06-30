@@ -1,15 +1,16 @@
 class Solution {
-    boolean validBST=true;
-    public boolean isValidBST(TreeNode root) { //O(N) space
-        ArrayList<Integer> arr = new ArrayList<>();
-        inorder(root,arr);
-        for(int i=1;i<arr.size();i++) if(arr.get(i-1)>=arr.get(i)) return false;
-        return true;
+    Integer prev=null;
+    public boolean isValidBST(TreeNode root) { 
+        return validateBST(root);
+
+
     }   
-    public void inorder(TreeNode root,ArrayList<Integer> arr) {
-        if(root==null) return;
-        inorder(root.left,arr);
-        arr.add(root.val);
-        inorder(root.right,arr);
+    public boolean validateBST(TreeNode node) {
+        if(node==null) return true;
+        if(!validateBST(node.left)) return false;
+        if(prev!=null && node.val<=prev) return false;
+        prev=node.val;
+        return validateBST(node.right);
     }
+
 }
