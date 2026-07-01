@@ -1,29 +1,29 @@
 class Solution {
+    private Integer prevVal = null;
+    private int currCount = 0;
+    private int maxCount = 0;
+    private List<Integer> modes = new ArrayList<>();
     public int[] findMode(TreeNode root) {
-        if (root == null) return new int[0];
-        HashMap<Integer, Integer> map = new HashMap<>();
-        searchModes(root, map);
-        int maxFreq = 0;
-        for (int freq : map.values()) {
-            if (freq > maxFreq) maxFreq = freq;
-        }
-        ArrayList<Integer> arr = new ArrayList<>();
-        for (int key : map.keySet()) {
-            if (map.get(key) == maxFreq) {
-                arr.add(key);
-            }
-        }
-        int[] ans = new int[arr.size()];
-        for (int i = 0; i < arr.size(); i++) {
-            ans[i] = arr.get(i);
-        }
-        return ans;
+        inorder(root);
+        return modes.stream().mapToInt(i -> i).toArray();
     }
-    public void searchModes(TreeNode root, HashMap<Integer, Integer> map) {
-        if (root == null) return;
-        searchModes(root.left, map);
-
-        map.put(root.val, map.getOrDefault(root.val, 0) + 1);
-        searchModes(root.right, map);
+    private void inorder(TreeNode node) {
+        if (node == null) return;
+        inorder(node.left);
+        if (prevVal != null && node.val == prevVal) {
+            currCount++;
+        } else {
+            currCount = 1;
+        }
+        if (currCount > maxCount) {
+            maxCount = currCount;
+            modes.clear();
+            modes.add(node.val);
+        } else if (currCount == maxCount) {
+            modes.add(node.val);
+        }
+        
+        prevVal = node.val;
+        inorder(node.right);
     }
 }
