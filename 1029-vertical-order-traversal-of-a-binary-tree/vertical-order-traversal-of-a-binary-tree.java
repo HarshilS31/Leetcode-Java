@@ -1,4 +1,3 @@
-
 class Solution {
     class Tuple {
         TreeNode node;
@@ -13,6 +12,7 @@ class Solution {
     
     public List<List<Integer>> verticalTraversal(TreeNode root) {
         TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new TreeMap<>();
+        // TreeMap<column,TreeMap<row,PQ(to store nodes)>
         Queue<Tuple> q = new LinkedList<>();
         if (root != null) {
             q.offer(new Tuple(root, 0, 0));
