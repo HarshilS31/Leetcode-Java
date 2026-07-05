@@ -1,15 +1,15 @@
 class Solution {
-    public int rob(int[] arr) {
-        int n=arr.length;
-        if(n==1) return arr[0];
-        int[] dp = new int[n];
-        dp[0]=arr[0];;
-        dp[1]=Math.max(arr[0],arr[1]);
-        for(int i=2;i<n;i++) {
-            dp[i]=Math.max(arr[i]+dp[i-2],dp[i-1]);
-
-        }
-        return dp[n-1];
+    public int rob(int[] nums) {
+        int[] memo = new int[nums.length];
+        Arrays.fill(memo,-1);
+        return maxAmount(nums,memo,0);
     }
-
+    public int maxAmount(int[] nums,int[] memo,int i) {
+        if(i>=nums.length) return 0;
+        if(memo[i]!=-1) return memo[i];
+        int take = nums[i]+maxAmount(nums,memo,i+2);
+        int skip = maxAmount(nums,memo,i+1);
+        memo[i]=Math.max(take,skip);
+        return memo[i];
+    }
 }
