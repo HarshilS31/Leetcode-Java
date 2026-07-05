@@ -2,12 +2,14 @@ class Solution {
     public int climbStairs(int n) {
         int[] dp = new int[n+1];
         Arrays.fill(dp,-1);
-        return Stairs(n,dp);
+        return memo(n,dp);
         
     }
-    public int Stairs(int n,int[] dp) {
-        if(n<=2) return n;
-        if (dp[n]!=-1) return dp[n];
-        else return dp[n]=Stairs(n-1,dp)+Stairs(n-2,dp);
+    public int memo(int i,int[] dp) {
+        if(i<=2) return i;
+        if(dp[i]!=-1) return dp[i];
+        else return dp[i]=memo(i-1,dp)+memo(i-2,dp);
     }
+    
+
 }
