@@ -12,11 +12,9 @@ class Solution {
             return;
         }
         if(idx==nums.length || target<0) return;
-        if(nums[idx]<=target) {
-            arr.add(nums[idx]);
-            findSum(nums,target-nums[idx],arr,ans,idx);
-            arr.remove(arr.size()-1);
-        }
+        arr.add(nums[idx]);
+        findSum(nums,target-nums[idx],arr,ans,idx);
+        arr.remove(arr.size()-1);
         findSum(nums,target,arr,ans,idx+1);
 
     }
