@@ -1,23 +1,21 @@
 class Solution {
     public int knapsack(int W, int val[], int wt[]) {
-        int[][] dp= new int[val.length][W+1];
-        for(int i=0;i<dp.length;i++) {
-            for(int j=0;j<dp[0].length;j++) {
-                dp[i][j]=-1;
-                
-            }
-        }
-        return profit(0,val,wt,W,dp);
-       
+        int[][] memo =  new int[val.length][W];
+        for(int[] arr:memo) Arrays.fill(arr,-1);
+        return maxVal(memo,val,wt,W,0);
         
     }
-    public int profit(int i, int val[], int wt[],int W,int[][] dp) {
-        if(i==wt.length) return 0;
-        if (dp[i][W]!=-1) return dp[i][W];
-        int skip=profit(i+1,val,wt,W,dp);
-        if(wt[i]>W) return dp[i][W]=skip;
-        int pick=val[i]+profit(i+1,val,wt,W-wt[i],dp);
-        return dp[i][W]=Math.max(pick,skip);
+    public int maxVal(int[][] memo,int[] val,int[] wt,int W,int i) {
+        if(i>=val.length || W<=0) return 0;
+        if(memo[i][W-1]!=-1) return memo[i][W-1];
+        if(wt[i]<=W) {
+            int pick = val[i]+maxVal(memo,val,wt,W-wt[i],i+1);
+            int skip = maxVal(memo,val,wt,W,i+1);
+            memo[i][W-1]=Math.max(pick,skip);
+            
+        }
+        else return memo[i][W-1]=maxVal(memo,val,wt,W,i+1);
+        return memo[i][W-1];
         
     }
 }
