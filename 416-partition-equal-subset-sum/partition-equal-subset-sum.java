@@ -1,22 +1,21 @@
 class Solution {
     public boolean canPartition(int[] nums) {
-        int totalSum=0;
-        for(int n:nums) totalSum+=n;
-        if(totalSum%2==1) return false;
-        Boolean [][] dp = new Boolean[nums.length][(totalSum/2)+1];
-        return checkSum(nums,dp,totalSum/2,0,nums.length);
-        
-    }
-    public static boolean checkSum(int[] arr, Boolean[][] dp, int sum, int i, int n) {
-        if (sum == 0) return true;
-        if (i >= n || sum < 0) return false;
-        if (dp[i][sum] != null) return dp[i][sum];
-        if (arr[i] > sum) {
-            return dp[i][sum] = checkSum(arr, dp, sum, i + 1, n);
+        int sum=0;
+        for(int k: nums){
+            sum+=k;
         }
-        boolean pick = checkSum(arr, dp, sum - arr[i], i + 1, n);
-        boolean skip = checkSum(arr, dp, sum, i + 1, n);
+        if(sum%2==1){
+            return false;
+        }
 
-        return dp[i][sum] = (pick || skip);
+        int target=sum/2;
+        boolean[] dp=new boolean[target+1];
+        dp[0]=true;
+        for(int n:nums){
+            for(int j=target;j>=n;j--){
+                dp[j]=dp[j]||dp[j-n];
+            }
+        }
+        return dp[target];
     }
 }
