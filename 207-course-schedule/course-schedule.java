@@ -15,7 +15,7 @@ class Solution {
         for(int i=0;i<n;i++)  {
             if(indegree[i]==0) {
                 q.add(i);
-                visited[i]=true;
+                // visited[i]=true;
             }
         }
         while(q.size()>0) {
@@ -25,7 +25,7 @@ class Solution {
                 indegree[node]--;
                 if(indegree[node]==0) {
                     q.add(node);
-                    visited[node]=true; 
+                    // visited[node]=true; 
                 }
                 
             }
