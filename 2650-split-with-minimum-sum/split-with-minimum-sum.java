@@ -2,18 +2,16 @@ class Solution {
     public int splitNum(int num) {
         char[] digits= Integer.toString(num).toCharArray();
         Arrays.sort(digits);
-        int k=digits.length/2;
-        StringBuilder num1 = new StringBuilder();
-        StringBuilder num2 = new StringBuilder();
+        int num1=0;
+        int num2=0;
         for(int i=0;i<digits.length;i+=2){
-            num1.append(digits[i]);
+            num1=num1*10+(digits[i]-'0');
             if(i+1<digits.length) {
-                num2.append(digits[i+1]);
+                num2=num2*10+(digits[i+1]-'0');
+                
             }
             
-        }
-        int n1 = Integer.parseInt(num1.toString());
-        int n2 = Integer.parseInt(num2.toString());
-        return n1+n2;      
+        }  
+        return num1+num2;    
     }
 }
