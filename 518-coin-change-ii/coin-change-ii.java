@@ -1,16 +1,21 @@
 class Solution {
     public int change(int amount, int[] coins) {
-        int[][] dp = new int[coins.length][amount+1];
-        for(int[] arr:dp) Arrays.fill(arr,-1);
-        return findWays(coins,dp,amount,0);
-    }
-    public int findWays(int[] coins,int[][] dp,int amount,int i) {
-        if(amount==0) return 1;
-        if(i>=coins.length || amount<0) return 0;
-        if(dp[i][amount]!=-1) return dp[i][amount];
-        int pick = findWays(coins,dp,amount-coins[i],i);
-        int skip = findWays(coins,dp,amount,i+1);
-        return dp[i][amount]=pick+skip;
-
+        int n = coins.length;
+        int[][] dp = new int[n][amount + 1];
+        for (int i=0; i<n;i++) {
+            dp[i][0]=1;
+        }
+        for (int i =0;i<n;i++) {
+            for (int j =1; j<=amount;j++) {
+                if (i==0) {
+                    dp[i][j]=(j %coins[i]==0) ?1:0;
+                } else {
+                    int skip=dp[i-1][j];
+                    int pick=(j>=coins[i]) ?dp[i][j-coins[i]]:0;
+                    dp[i][j]=skip+pick;
+                }
+            }
+        }
+        return dp[n-1][amount];
     }
 }
