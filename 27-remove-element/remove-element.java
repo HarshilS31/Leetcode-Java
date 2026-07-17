@@ -4,10 +4,7 @@ class Solution {
         while(i<j) {
             if(arr[i]==val) {
                 arr[i]=arr[j-1];
-                j--;
-                
-                
-                
+                j--;  
             }
             else i++;
         }
