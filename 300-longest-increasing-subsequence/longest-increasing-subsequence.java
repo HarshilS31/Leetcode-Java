@@ -10,9 +10,8 @@ class Solution {
         if(dp[idx][prevIdx+1]!=-1) return dp[idx][prevIdx+1];
         int len = LIS(idx+1,prevIdx,nums,dp);
         if(prevIdx==-1 || nums[idx]>nums[prevIdx]) {
-            dp[idx][prevIdx+1]=Math.max(len,1+LIS(idx+1,idx,nums,dp));
+            len=Math.max(len,1+LIS(idx+1,idx,nums,dp));
         }
-        else dp[idx][prevIdx+1]=len;
-        return dp[idx][prevIdx+1];
+        return dp[idx][prevIdx+1]=len;
     }
 }
