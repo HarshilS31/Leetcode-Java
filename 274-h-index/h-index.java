@@ -1,16 +1,17 @@
 class Solution {
     public int hIndex(int[] citations) {
-        int h_index=0;
-        for(int i=1;i<=citations.length;i++) {
-            int currCitations=0;
-            for(int j=0;j<citations.length;j++){
-                if(citations[j]>=i) currCitations++;
-            }
-            if(currCitations>=i) h_index=i;
-        } 
-        return h_index;
-
-       
+        int n=citations.length;
+        int[] buckets = new int[n+1];
+        for(int c:citations) {
+            if(c>=n) buckets[n]++;
+            else buckets[c]++;
+        }
+        int count=0;
+        for(int i=n;i>=0;i--) {
+            count+=buckets[i];
+            if(count>=i) return i;
+        }
+        return 0;   
     }
 
 }
