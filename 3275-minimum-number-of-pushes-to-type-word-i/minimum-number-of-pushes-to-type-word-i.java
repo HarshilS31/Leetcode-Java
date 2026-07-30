@@ -4,7 +4,7 @@ class Solution {
         if(n<=8) return n;
         int pushes=0;
         int traversal=1;
-        while(n>=0) {
+        while(n>0) {
             if(n>=8) pushes+=8*traversal;
             else pushes+=n*traversal;
             traversal++;
