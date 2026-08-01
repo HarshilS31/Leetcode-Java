@@ -14,7 +14,8 @@ class Solution {
         if(dp[i][j]!=-1) return dp[i][j];
         int maxCoins=Integer.MIN_VALUE;
         for(int k=i;k<=j;k++) {
-            int coins = nums[i-1]*nums[k]*nums[j+1] + findMaxCoins(i,k-1,nums,dp) + findMaxCoins(k+1,j,nums,dp);
+            int coins = nums[i-1]*nums[k]*nums[j+1]+
+            findMaxCoins(i,k-1,nums,dp)+findMaxCoins(k+1,j,nums,dp);
             maxCoins=Math.max(coins,maxCoins);
         }
         return dp[i][j]=maxCoins;
