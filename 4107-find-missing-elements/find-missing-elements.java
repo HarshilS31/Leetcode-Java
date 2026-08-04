@@ -9,7 +9,7 @@ class Solution {
             minVal=Math.min(minVal,num);
             set.add(num);
         }
-        for(int i=minVal;i<=maxVal;i++) {
+        for(int i=minVal+1;i<maxVal;i++) {
             if(!set.contains(i)) res.add(i);
         }
         return res;
