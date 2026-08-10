@@ -6,24 +6,23 @@ class Solution {
         for(int i=0;i<r;i++) {
             for(int j=0;j<c;j++) {
                 if(grid[i][j]=='1') {
-                    dfs(i,j,grid);
+                    dfs(grid,i,j);
                     islands++;
+                    
                 }
             }
         }
         return islands;
-
     }
-    void dfs(int i,int j,char[][] grid) {
-        grid[i][j]='2';//Visited
-        int[][] directions ={{1,0},{-1,0},{0,1},{0,-1}};
-        for(int[] d:directions) {
-            int i1=i+d[0];
-            int j1=j+d[1];
-            if(i1>=0 && j1>=0 && i1<grid.length && j1<grid[0].length && grid[i1][j1]=='1') {
-                dfs(i1,j1,grid);
+    public void dfs(char[][] grid,int i,int j) {
+        grid[i][j]='2'; //VISITED
+        int[][] directions = {{0,1},{0,-1},{1,0},{-1,0}};
+        for(int[] dir :directions) {
+            int i1=i+dir[0];
+            int j1=j+dir[1];
+            if(i1>=0 && j1>=0 &&  i1<grid.length && j1<grid[0].length && grid[i1][j1]=='1') {
+                dfs(grid,i1,j1);
             }
         }
     }
-    
 }
