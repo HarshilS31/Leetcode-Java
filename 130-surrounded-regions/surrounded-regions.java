@@ -1,36 +1,31 @@
 class Solution {
+    int[][] directions = {{1,0},{-1,0},{0,1},{0,-1}};
     public void solve(char[][] board) {
-        if (board == null || board.length == 0) return;
         int m = board.length;
         int n = board[0].length;
-        for (int i = 0; i < m; i++) {
-            if (board[i][0] == 'O') dfs(board, i, 0);
-            if (board[i][n - 1] == 'O') dfs(board, i, n - 1);
-        }
-        for (int j = 0; j < n; j++) {
-            if (board[0][j] == 'O') dfs(board, 0, j);
-            if (board[m - 1][j] == 'O') dfs(board, m - 1, j);
-        }
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (board[i][j] == 'O') {
-                    board[i][j] = 'X';
-                } else if (board[i][j] == 'E') {
-                    board[i][j] = 'O';
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if( i==0 || j==0 || i==m-1 || j==n-1 ) {
+                    if(board[i][j]=='O') dfs(board,i,j);
                 }
             }
-        }
+        } 
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(board[i][j]=='O') board[i][j]='X'; 
+                else if(board[i][j]=='$') board[i][j]='O';
+
+            }
+        } 
     }
-    private void dfs(char[][] board, int r, int c) {
-        if (r < 0 || r >= board.length || c < 0 || c >= board[0].length || board[r][c] != 'O') {
-            return;
-        }
-        
-        board[r][c] = 'E';
-        
-        dfs(board, r + 1, c);
-        dfs(board, r - 1, c);
-        dfs(board, r, c + 1);
-        dfs(board, r, c - 1);
+    public void dfs(char[][] board,int x,int y) {
+        board[x][y]='$';
+        for(int[] d:directions) {
+            int x1=x+d[0];
+            int y1=y+d[1];
+            if(x1>=0 && y1>=0 && x1<board.length && y1<board[0].length && board[x1][y1]=='O') {
+                dfs(board,x1,y1);
+            }
+        }   
     }
 }
