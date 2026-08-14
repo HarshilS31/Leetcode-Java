@@ -1,20 +1,20 @@
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        List<Integer> ans = new ArrayList<>();
-        int[] status=new int[graph.length];
-        // 0->unvisited, 1->visiting, 2->safe
-        for(int i=0;i<graph.length;i++) {
-            if(isSafe(i,graph,status)) ans.add(i);
+        int n = graph.length;
+        int[] status =new int[n];
+        List<Integer> res = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            if(isSafe(i,graph,status)) res.add(i);
         }
-        return ans;
+        return res; 
     }
-    public boolean isSafe(int currNode,int[][] graph,int[] status) {
-        if(status[currNode]>0) return status[currNode]==2;
-        status[currNode]=1;
-        for(int node:graph[currNode]) {
+    public boolean isSafe(int curr,int[][] graph,int[] status) {
+        if(status[curr]!=0) return status[curr]==2;
+        status[curr]=1;
+        for(int node:graph[curr]) {
             if(!isSafe(node,graph,status)) return false;
         }
-        status[currNode]=2;
+        status[curr]=2;
         return true;
     }
 }
