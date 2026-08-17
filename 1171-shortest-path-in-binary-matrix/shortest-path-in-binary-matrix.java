@@ -18,6 +18,7 @@ class Solution {
                 int x1 = x+dir[0];
                 int y1 = y+dir[1];
                 if(x1>=0 && y1>=0 && x1<m && y1<n && grid[x1][y1]==0) {
+                    if(d>=res[x1][y1]) continue;
                     if(res[x1][y1]>d+1) {
                         res[x1][y1]=d+1;
                         pq.add(new int[]{x1,y1,d+1});
