@@ -1,23 +1,14 @@
 class Solution {
     public boolean checkDivisibility(int n) {
-        int divisor = sumOfDigits(n) + productOfDigits(n);
-        return (n%divisor==0);
-    }
-    int sumOfDigits(int num) {
-        int sum=0;
-        while(num >0) {
-        sum+=num%10;
-        num/=10;
-        }
-        return sum;
-
-    }
-    int productOfDigits(int num) {
-        int product = 1;
+        int sum =0;
+        int pro =1;
+        int num=n;
         while(num>0) {
-            product*=num%10;
-            num/=10;    
+            sum+=num%10;
+            pro*=num%10;
+            num/=10;
         }
-        return product;
+        return (n%(sum+pro)==0);
     }
+
 }
