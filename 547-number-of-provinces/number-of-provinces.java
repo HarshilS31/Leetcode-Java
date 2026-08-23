@@ -21,6 +21,6 @@ class Solution {
     }
     public int find(int i,int[] parent) {
         if(parent[i]==i) return i;
-        return find(parent[i],parent);
+        return parent[i]=find(parent[i],parent);
     }
 }
