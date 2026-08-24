@@ -1,6 +1,5 @@
 class Solution {
     public int candy(int[] ratings) {
-        //Brute force 
         int n =ratings.length;
         int[] candies =  new int[n];
         Arrays.fill(candies,1);
