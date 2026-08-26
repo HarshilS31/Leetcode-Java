@@ -1,30 +1,27 @@
 class Solution {
     public String shortestBeautifulSubstring(String s, int k) {
-        int n = s.length();        
-        StringBuilder res =new StringBuilder();
-        boolean found = false;
-        for(int i=0;i<n;i++){
-            StringBuilder temp = new StringBuilder();
-            int oneCount=0;
-            int j=i;
-            while(j<n && oneCount<k) {
-                if(s.charAt(j)=='1') oneCount++;
-                temp.append(s.charAt(j++));
+        int n = s.length();
+        int oneCount=0;
+        int i=0;
+        int j=0;
+        StringBuilder res = new StringBuilder();
+        while(j<n) {
+            if(s.charAt(j)=='1') oneCount++;
+            while(i<n && (oneCount>k || s.charAt(i)=='0')) {
+                if(s.charAt(i)=='1') oneCount--;
+                i++;
             }
-            if(oneCount < k) continue;
-            if(res.length()==0) {
-                found = true;
-                res = temp;   
+            if(oneCount==k) {
+                StringBuilder temp = new StringBuilder(s.subSequence(i,j+1));
+                if(res.length()==0 || res.length()>temp.length()) res=temp;
+                else if(res.length()==temp.length()) {
+                    String a = res.toString();
+                    String b = temp.toString();
+                    if(a.compareTo(b)>0) res=temp;
+                }    
             }
-            else {
-                if(res.length()>temp.length()) res = temp;
-                if(res.length()==temp.length()) {
-                    String r = res.toString();
-                    String t = temp.toString();
-                    if(r.compareTo(t)>0) res=temp;
-                } 
-            }
+            j++;
         }
-        return found ? res.toString() : "";
+        return res.toString();
     }
 }
