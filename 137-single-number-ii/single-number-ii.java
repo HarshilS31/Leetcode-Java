@@ -1,16 +1,11 @@
 class Solution {
-    public int singleNumber(int[] nums) { 
-        int res=0;
-        //O(n*32)
-        for(int bit=0;bit<=31;bit++) {
-            int count =0;
-            for(int num:nums) {
-                if((num & (1<<bit))!=0) count++;
-            }
-            if(count%3!=0) {
-                res += 1 << bit;
-            }
+    public int singleNumber(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        for(int i=1;i<n;i+=3) {
+            if(nums[i]!=nums[i-1]) return nums[i-1];
         }
-        return res;
+        return nums[n-1];
+        
     }
 }
