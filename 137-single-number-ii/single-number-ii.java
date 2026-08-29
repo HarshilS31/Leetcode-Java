@@ -1,7 +1,7 @@
 class Solution {
     public int singleNumber(int[] nums) { 
         int res=0;
-        //O(n^2)
+        //O(n*32)
         for(int bit=0;bit<=31;bit++) {
             int count =0;
             for(int num:nums) {
@@ -12,6 +12,5 @@ class Solution {
             }
         }
         return res;
-        
     }
 }
