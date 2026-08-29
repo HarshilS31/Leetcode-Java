@@ -1,16 +1,11 @@
 class Solution {
-    public int singleNumber(int[] nums) { 
-        int res=0;
-        for(int bit=0;bit<=31;bit++) {
-            int count =0;
-            for(int num:nums) {
-                if((num & (1<<bit))!=0) count++;
-            }
-            if(count%3!=0) {
-                res += 1 << bit;
-            }
+    public int singleNumber(int[] nums) {
+        int ones = 0;
+        int twos = 0;
+        for(int num:nums) {
+            ones = (num^ones) & ~twos;
+            twos = (num^twos) & ~ones;
         }
-        return res;
-        
+        return ones;
     }
 }
