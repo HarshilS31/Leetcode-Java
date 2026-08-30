@@ -1,17 +1,17 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
-        // Brute force
-        int[] res = new int[2];
-        int idx=0;
-        HashMap<Integer,Integer> map = new HashMap<>();
+        int x = 0;
         for(int num:nums) {
-            map.put(num,map.getOrDefault(num,0)+1);
+            x^=num;
         }
-        for(int key : map.keySet()) {
-            if(map.get(key)==1) res[idx++]=key;
-            if (idx==2) break;
+        int rightMostBit = (x & x-1) ^ x;
+        int b1=0;
+        int b2=0;
+        for(int num:nums) {
+            if((num & rightMostBit)==0) b1^=num;
+            else b2^=num;
         }
-        return res;
+        return new int[]{b1,b2};
         
     }
 }
