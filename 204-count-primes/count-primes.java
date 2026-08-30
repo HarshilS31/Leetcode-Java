@@ -1,23 +1,22 @@
 class Solution {
     public int countPrimes(int n) {
-        if (n <= 2) return 0;
-        boolean[] isPrime = new boolean[n];
-        Arrays.fill(isPrime, true);
-        isPrime[0] = false;
-        isPrime[1] = false;
-    
-        for (int p = 2; p * p < n; p++) {
-            if (isPrime[p]) {
-                for (int i = p * p; i < n; i += p) {
-                    isPrime[i] = false;
+        if(n<=2) return 0;
+        int[] primes = new int[n];
+        Arrays.fill(primes,1);
+        primes[0]=0;
+        primes[1]=0;
+        for(int i=2;i*i<n;i++) {
+            if(primes[i]==1) {
+                for(int j=i*i;j<n;j+=i) {
+                    primes[j]=0;
                 }
             }
         }
-        int primeCount = 0;
-        for (int i = 2; i < n; i++) {
-            if (isPrime[i]) primeCount++;
+        int count=0;
+        for(int k:primes) {
+            if (k==1) count++;
         }
+        return count;
         
-        return primeCount;
     }
 }
