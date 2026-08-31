@@ -12,9 +12,9 @@ class Solution {
                 }
             }
         }
-        int count=0;
+        int count = 0;
         for(int k:primes) {
-            if (k==1) count++;
+            if(k==1) count++;
         }
         return count;
         
