@@ -1,23 +1,22 @@
 class Solution {
-    public void rotate(int[][] arr) {
-        
-        for(int i = 0; i < arr.length; i++) {
-            for (int j = i + 1; j < arr[0].length; j++) {
-                int temp = arr[i][j];
-                arr[i][j] = arr[j][i];
-                arr[j][i] = temp;
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        if(n==1) return;
+        for(int col=0;col<n;col++){
+            int row1=0;
+            int rowN=n-1;
+            while(row1<=rowN) {
+                int temp=matrix[row1][col];
+                matrix[row1++][col]=matrix[rowN][col];
+                matrix[rowN--][col]=temp;
             }
         }
-        for(int i = 0; i < arr.length; i++) {
-            int startcol = 0;
-            int endcol = arr[0].length - 1;
-            while(startcol < endcol) {
-                int temp = arr[i][startcol];
-                arr[i][startcol] = arr[i][endcol];
-                arr[i][endcol] = temp;
-                startcol++;
-                endcol--;
+        for(int i=0;i<n;i++) {
+            for(int j=i+1;j<n;j++){
+                int temp=matrix[i][j];
+                matrix[i][j]=matrix[j][i];
+                matrix[j][i]=temp;
             }
-        }
+        }   
     }
 }
