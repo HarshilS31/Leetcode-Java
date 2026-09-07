@@ -1,18 +1,19 @@
 class Solution {
-    public boolean canConstruct(String ransomNote, String magazine) {
-        HashMap<Character,Integer> map1 = new HashMap<>();
-        HashMap<Character,Integer> map2 = new HashMap<>();
-        for(char c:ransomNote.toCharArray()) {
-            map1.put(c,map1.getOrDefault(c,0)+1);
+    public boolean canConstruct(String s1, String s2) {
+        int m = s1.length();
+        int n = s2.length();
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(int i=0;i<n;i++) {
+            char c = s2.charAt(i);
+            map.put(c,map.getOrDefault(c,0)+1);
         }
-        for(char c:magazine.toCharArray()) {
-            map2.put(c,map2.getOrDefault(c,0)+1);
-        }
-        for(char c:map1.keySet()) {
-            if(map1.get(c)>map2.getOrDefault(c,0)) return false;
+        for(int i=0;i<m;i++) {
+            char c = s1.charAt(i);
+            if(!map.containsKey(c)) return false;
+            map.put(c,map.getOrDefault(c,0)-1);
+            if(map.getOrDefault(c,0)==0) map.remove(c);
         }
         return true;
-
         
     }
 }
