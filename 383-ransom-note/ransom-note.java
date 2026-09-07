@@ -5,10 +5,6 @@ class Solution {
         for(char c :ransomNote.toCharArray()) {
             freq[c-'a']--;
             if(freq[c-'a']<0) return false;
-            
-        }
-        for(int k:freq) {
-            
         }
         return true;
 
