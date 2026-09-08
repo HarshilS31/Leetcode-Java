@@ -7,7 +7,6 @@ class Solution {
             temp/=10;
             digits++;
         }
-        // int num = Math.pow(10,digits-1);
         int res = n-999;
         return res;
 
