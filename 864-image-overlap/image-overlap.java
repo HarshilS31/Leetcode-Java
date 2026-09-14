@@ -1,33 +1,26 @@
 class Solution {
     public int largestOverlap(int[][] img1, int[][] img2) {
-        int n = img1.length;
-        int max = 0;
-
-        for (int r = -n + 1; r < n; r++) {
-            for (int c = -n + 1; c < n; c++) {
-
-                int overlap = 0;
-
-                for (int i = 0; i < n; i++) {
-                    for (int j = 0; j < n; j++) {
-
-                        int x = i + r;
-                        int y = j + c;
-
-                        if (x >= 0 && x < n &&
-                            y >= 0 && y < n &&
-                            img1[i][j] == 1 &&
-                            img2[x][y] == 1) {
-
-                            overlap++;
+        int n  = img1.length;
+        int maxOverLap = 0;
+        HashMap<String,Integer> map = new HashMap<>();
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++){
+                if(img1[i][j]==1) {
+                    for(int p=0;p<n;p++) {
+                        for(int q=0;q<n;q++) {
+                            if(img2[p][q]==1) {
+                                String shift = (i-p)+","+(j-q);
+                                map.put(shift,map.getOrDefault(shift,0)+1);
+                                maxOverLap = Math.max(maxOverLap,map.getOrDefault(shift,0));
+                            }
                         }
                     }
-                }
 
-                max = Math.max(max, overlap);
+                }
             }
         }
+        return maxOverLap;
 
-        return max;
+        
     }
 }
