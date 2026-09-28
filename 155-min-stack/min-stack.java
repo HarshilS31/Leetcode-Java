@@ -1,43 +1,25 @@
 class MinStack {
-        Stack<Integer> s1= new Stack<>();
-        Stack<Integer> s2= new Stack<>();
-
-
+    private ArrayList<Integer> arr;
+    private ArrayList<Integer> minVals = new ArrayList<>();
+    private int minVal = Integer.MAX_VALUE;
     public MinStack() {
-        Stack<Integer> s1= new Stack<>();
-        Stack<Integer> s2= new Stack<>();
-
-        
+        arr = new ArrayList<>();
     }
-    
-    public void push(int val) {
-        s1.push(val);
-        if (s2.size()==0 || val<=s2.peek()) s2.push(val);
-        else s2.push(s2.peek());   
+    public void push(int value) {
+        arr.add(value);
+        if(minVals.size() == 0 || value <= minVals.get(minVals.size()-1)) minVals.add(value);
+        
     }
     public void pop() {
-        s1.pop(); s2.pop();
-
-        
+       if (arr.get(arr.size() - 1).equals(minVals.get(minVals.size() - 1))) minVals.remove(minVals.size()-1);
+        arr.remove(arr.size()-1);
     }
     
     public int top() {
-        return s1.peek();
-
+        return arr.get(arr.size()-1);
         
     }
-    
     public int getMin() {
-        return s2.peek();
-        
+        return minVals.get(minVals.size()-1);
     }
 }
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack obj = new MinStack();
- * obj.push(val);
- * obj.pop();
- * int param_3 = obj.top();
- * int param_4 = obj.getMin();
- */
