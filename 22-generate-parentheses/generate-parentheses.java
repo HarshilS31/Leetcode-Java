@@ -4,8 +4,6 @@ class Solution {
             ans.add(s);
             return;
         }
-
-        
         if(l<n) gp(n,l+1,r,s+"(",ans);
         if(r<l) gp(n,l,r+1,s+")",ans);
 
