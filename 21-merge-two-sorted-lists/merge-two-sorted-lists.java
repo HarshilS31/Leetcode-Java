@@ -1,38 +1,41 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode dummy=new ListNode(-1);
-        ListNode i=list1;
-        ListNode j=list2;
-        ListNode k=dummy;
-        while(i!=null && j!=null) {
-            if(i.val<=j.val) {
-                k.next=i;
-                i=i.next;
-            }
-            else {// i.val>j.val
-            k.next=j;
-            j=j.next; 
-            }
-            k=k.next;
-
+        if(list1==null) return list2;
+        if(list2==null) return list1;
+        ListNode temp1=list1;
+        ListNode temp2=list2;
+        ListNode head = new ListNode();
+        ListNode temp=head;
+        if(temp1.val<temp2.val) {
+            head.val=temp1.val;
+            temp1=temp1.next;
+        } else {
+            head.val=temp2.val;
+            temp2=temp2.next;   
         }
-        if(i==null) k.next=j;
-        else  k.next=i;
-        return dummy.next;
+        while(temp1!=null && temp2!=null) {
+            if(temp1.val<temp2.val) {
+                head.next=new ListNode(temp1.val);
+                head=head.next;
+                temp1=temp1.next;
+            }else {
+                head.next=new ListNode(temp2.val);
+                head=head.next;
+                temp2=temp2.next;
+            }
+        }
+        while(temp1!=null) {
+            head.next=new ListNode(temp1.val);
+            head=head.next;
+            temp1=temp1.next;
+        }
+        while(temp2!=null) {
+            head.next=new ListNode(temp2.val);
+            head=head.next;
+            temp2=temp2.next;
+        }
+        return temp;
 
-
-    
-        
         
     }
 }
