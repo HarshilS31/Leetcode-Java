@@ -1,41 +1,38 @@
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         if(list1==null) return list2;
-        if(list2==null) return list1;
-        ListNode temp1=list1;
-        ListNode temp2=list2;
-        ListNode head = new ListNode();
-        ListNode temp=head;
-        if(temp1.val<temp2.val) {
-            head.val=temp1.val;
-            temp1=temp1.next;
-        } else {
-            head.val=temp2.val;
-            temp2=temp2.next;   
+        else if(list2==null) return list1;
+        ListNode list3 = new ListNode(-1);
+        ListNode i=list1;
+        ListNode j=list2;
+        if(i.val<j.val) {
+            list3.val=i.val;
+            i=i.next;
+        }else {
+            list3.val=j.val;
+            j=j.next;
         }
-        while(temp1!=null && temp2!=null) {
-            if(temp1.val<temp2.val) {
-                head.next=new ListNode(temp1.val);
-                head=head.next;
-                temp1=temp1.next;
+        ListNode temp = list3;
+        while(i!=null && j!=null) {
+            if(i.val<j.val) {
+                temp.next=new ListNode(i.val);
+                i=i.next;
             }else {
-                head.next=new ListNode(temp2.val);
-                head=head.next;
-                temp2=temp2.next;
+                temp.next=new ListNode(j.val);
+                j=j.next;
             }
+            temp=temp.next;
+        } 
+        while(i!=null) {
+            temp.next=new ListNode(i.val);
+            i=i.next;
+            temp=temp.next;
         }
-        while(temp1!=null) {
-            head.next=new ListNode(temp1.val);
-            head=head.next;
-            temp1=temp1.next;
+        while(j!=null) {
+            temp.next=new ListNode(j.val);
+            j=j.next;
+            temp=temp.next;
         }
-        while(temp2!=null) {
-            head.next=new ListNode(temp2.val);
-            head=head.next;
-            temp2=temp2.next;
-        }
-        return temp;
-
-        
+        return list3;   
     }
 }
