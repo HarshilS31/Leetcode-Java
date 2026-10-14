@@ -1,50 +1,50 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
-    public ListNode mergeKLists(ListNode[] arr) {
-        if(arr.length==0) return null;
-        ArrayList<ListNode> lists = new ArrayList<>();
-        for(ListNode n:arr) lists.add(n);
-        while(lists.size()>1) {
-            ListNode a=lists.get(lists.size()-1);
-            lists.remove(lists.size()-1);
-            ListNode b=lists.get(lists.size()-1);
-            lists.remove(lists.size()-1);
-            ListNode c= merge(a,b);
-            lists.add(c);
+    public ListNode mergeKLists(ListNode[] lists) {
+        int n = lists.length;
+        if(n==0) return null;
+        if(n==1) return lists[0];
+        ListNode res = mergeTwoLists(lists[0],lists[1]);
+        if(n==2) return res;
+        for(int i=2;i<n;i++) {
+            res=mergeTwoLists(res,lists[i]);
         }
-        return lists.get(0);
+        return res;
     }
-    ListNode merge(ListNode a,ListNode b) {
-        ListNode i=a;
-        ListNode j=b;
-        ListNode dummy=new ListNode(-1);
-        ListNode k=dummy;
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if(list1==null) return list2;
+        else if(list2==null) return list1;
+        ListNode list3 = new ListNode(-1);
+        ListNode i=list1;
+        ListNode j=list2;
+        if(i.val<j.val) {
+            list3.val=i.val;
+            i=i.next;
+        }else {
+            list3.val=j.val;
+            j=j.next;
+        }
+        ListNode temp = list3;
         while(i!=null && j!=null) {
             if(i.val<j.val) {
-                k.next=i;
+                temp.next=new ListNode(i.val);
                 i=i.next;
-
-            }
-            else {
-                k.next=j;
+            }else {
+                temp.next=new ListNode(j.val);
                 j=j.next;
-
             }
-            k=k.next;
-
+            temp=temp.next;
+        } 
+        while(i!=null) {
+            temp.next=new ListNode(i.val);
+            i=i.next;
+            temp=temp.next;
         }
-        if(i==null) k.next=j;
-        else k.next=i;
-        return dummy.next;
-
+        while(j!=null) {
+            temp.next=new ListNode(j.val);
+            j=j.next;
+            temp=temp.next;
+        }
+        return list3;   
     }
+
 }
