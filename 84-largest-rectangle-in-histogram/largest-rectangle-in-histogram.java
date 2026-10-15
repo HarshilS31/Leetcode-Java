@@ -1,24 +1,27 @@
 class Solution {
-    // static{
-    //     for(int i=0;i<1000;i++){
-    //         largestRectangleArea(new int[] {i});
-    //     }
-    // }
-    public static int largestRectangleArea(int[] heights) {
-        int n=heights.length;
-        int[] stack=new int[n+1];
-        int maxarea=0;
-        int top=-1;
-        for(int i=0;i<=n;i++){
-            int currheight=(i==n)?0:heights[i];
-            while(top!=-1 && currheight<heights[stack[top]]){
-                int idx=stack[top--];
-                int height=heights[idx];
-                int width=(top==-1)?i:i-stack[top]-1;
-                maxarea=Math.max(maxarea,height*width);
-            }
-            stack[++top]=i;
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int[] pse = new int[n];
+        int[] nse = new int[n];
+        Arrays.fill(pse,-1);
+        Arrays.fill(nse,n);
+        int maxArea = Integer.MIN_VALUE;
+        Stack<Integer> s = new Stack<>();
+        for(int i=0;i<n;i++) {
+            while(!s.isEmpty() && heights[s.peek()]>=heights[i]) s.pop();
+            if(!s.isEmpty()) pse[i]=s.peek();
+            s.push(i);
         }
-        return maxarea;
+        s.clear();
+        for(int i=n-1;i>=0;i--) {
+            while(!s.isEmpty() && heights[s.peek()]>=heights[i]) s.pop();
+            if(!s.isEmpty()) nse[i]=s.peek();
+            s.push(i);
+        }
+        for(int i=0;i<n;i++) {
+            int currArea = heights[i]*(nse[i]-pse[i]-1);
+            maxArea = Math.max(currArea,maxArea);
+        }
+        return maxArea;
     }
 }
