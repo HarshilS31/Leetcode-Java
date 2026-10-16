@@ -1,16 +1,16 @@
 class Solution {
-    public int[][] kClosest(int[][] arr, int k) {
-        PriorityQueue<int[]> heap = new PriorityQueue<>((x,y)->((y[0]*y[0]+y[1]*y[1])-(x[0]*x[0]+x[1]*x[1])));
-        for(int[] point: arr) {
-            heap.add(point);
-            if(heap.size()>k)
-                heap.remove();
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a,b)->((b[0]*b[0]+b[1]*b[1])-(a[0]*a[0]+a[1]*a[1])));
+        for(int[] point: points) {
+            maxHeap.add(point);
+            if(maxHeap.size()>k)
+                maxHeap.poll();
         }
-        int[][] ans = new int[k][2];
+        int[][] result = new int[k][2];
         int i=0;
-        while(!heap.isEmpty()) {
-            ans[i++] = heap.poll();
+        while(!maxHeap.isEmpty()) {
+            result[i++] = maxHeap.poll();
         }
-        return ans;
+        return result;
     }
 }
