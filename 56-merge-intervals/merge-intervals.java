@@ -1,17 +1,17 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        int n = intervals.length;
-        if(n==1) return intervals;
         Arrays.sort(intervals,(a,b)->Integer.compare(a[0],b[0]));
+        int n = intervals.length;
+        if(n<=1) return intervals;
         List<int[]> list = new ArrayList<>();
         int[] curr = intervals[0];
-        for(int[] interval: intervals) {
+        for(int[] interval:intervals) {
             int currStart = curr[0];
             int currEnd = curr[1];
             int nextStart = interval[0];
             int nextEnd = interval[1];
-            if(currEnd >= nextStart) {
-                curr[1] = Math.max(currEnd,nextEnd);
+            if(nextStart<=currEnd) {
+                curr[1] = Math.max(nextEnd,currEnd);
             }
             else {
                 list.add(curr);
@@ -19,9 +19,6 @@ class Solution {
             }
         }
         list.add(curr);
-        return list.toArray(new int[list.size()][2]);
-
-
-        
+        return list.toArray(new int[list.size()][2]);        
     }
 }
