@@ -10,10 +10,9 @@ class Solution {
         if(amount==0) return 0;
         if(amount<0 || i==coins.length) return 1_000_000_000;
         if(dp[amount][i]!=-1) return dp[amount][i];
-        int pickNstay=1+numCoins(coins,amount-coins[i],i,dp);
-        int pickNmove=1+numCoins(coins,amount-coins[i],i+1,dp);
-        int skipNmove=numCoins(coins,amount,i+1,dp);
-        return dp[amount][i]=Math.min(pickNstay,Math.min(pickNmove,skipNmove));
+        int pick=1+numCoins(coins,amount-coins[i],i,dp);
+        int skip=numCoins(coins,amount,i+1,dp);
+        return dp[amount][i]=Math.min(pick,skip);
     
     }
 }
