@@ -1,22 +1,19 @@
 class Solution {
+    int minCoins=0;
     public int coinChange(int[] coins, int amount) {
-        long[][] dp = new long[coins.length][amount+1];
-        for(int i=0; i<dp.length; i++)
-            for(int j=0; j<dp[0].length; j++) dp[i][j] = -1;
-        int ans = (int)countCoins(0, coins, amount, dp);
-        if(ans == Integer.MAX_VALUE) return -1;
-        return ans;
-    }                       
-
-    public long countCoins(int i, int[] coins, int amount, long[][] dp) {
-        if(i == coins.length) {
-            if(amount == 0) return 0;
-            else return Integer.MAX_VALUE;
-        }
-        if(dp[i][amount] != -1) return dp[i][amount];
-        long skip = countCoins(i+1, coins, amount, dp);
-        if(coins[i] > amount) return dp[i][amount] = skip;
-        long pick = 1 + countCoins(i, coins, amount-coins[i], dp);
-        return dp[i][amount] = Math.min(pick, skip);
+        int[][] dp = new int[amount+1][coins.length];
+        for(int[] arr:dp) Arrays.fill(arr,-1);
+        int minCoins = numCoins(coins,amount,0,dp);
+        return minCoins ==1_000_000_000 ? -1 : minCoins;
+    }
+    int numCoins(int[] coins,int amount,int i,int[][] dp) {
+        if(amount==0) return 0;
+        if(amount<0 || i==coins.length) return 1_000_000_000;
+        if(dp[amount][i]!=-1) return dp[amount][i];
+        int pickNstay=1+numCoins(coins,amount-coins[i],i,dp);
+        int pickNmove=1+numCoins(coins,amount-coins[i],i+1,dp);
+        int skipNmove=numCoins(coins,amount,i+1,dp);
+        return dp[amount][i]=Math.min(pickNstay,Math.min(pickNmove,skipNmove));
+    
     }
 }
