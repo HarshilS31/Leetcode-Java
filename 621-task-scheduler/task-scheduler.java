@@ -9,7 +9,7 @@ class Solution {
         int intervals =0;
         while(!pq.isEmpty()) {
             List<Integer> temp = new ArrayList<>();
-            for(int i=0;i<=n;i++) {
+            for(int i=1;i<=n+1;i++){
                 if(!pq.isEmpty()) {
                     int top = pq.poll();
                     top--;
@@ -19,7 +19,7 @@ class Solution {
             for(int f:temp) {
                 if(f>0) pq.add(f);
             }
-            intervals+=(pq.isEmpty() ? temp.size():n+1);  
+            intervals+=(pq.isEmpty() ?  temp.size() : n+1);
         }
         return intervals; 
     }
