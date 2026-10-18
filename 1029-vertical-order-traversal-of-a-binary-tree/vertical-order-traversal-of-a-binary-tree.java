@@ -3,45 +3,47 @@ class Solution {
         TreeNode node;
         int row;
         int col;
-        public Tuple(TreeNode node, int row, int col) {
+        Tuple(TreeNode node, int row, int col) {
             this.node = node;
             this.row = row;
             this.col = col;
         }
     }
-    
+
     public List<List<Integer>> verticalTraversal(TreeNode root) {
-        TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new TreeMap<>();
-        // TreeMap<column,TreeMap<row,PQ(to store nodes)>
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+
+        // BFS Queue
         Queue<Tuple> q = new LinkedList<>();
-        if (root != null) {
-            q.offer(new Tuple(root, 0, 0));
-        }
+        
+        // map: col -> (row -> PriorityQueue of node values)
+        TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new TreeMap<>();
+
+        q.add(new Tuple(root, 0, 0));
+
         while (!q.isEmpty()) {
-            Tuple current = q.poll();
-            TreeNode node = current.node;
-            int row = current.row;
-            int col = current.col;
+            Tuple top = q.poll();
+            TreeNode node = top.node;
+            int row = top.row;
+            int col = top.col;
             map.putIfAbsent(col, new TreeMap<>());
             map.get(col).putIfAbsent(row, new PriorityQueue<>());
-            map.get(col).get(row).offer(node.val);
-            if (node.left != null) {
-                q.offer(new Tuple(node.left, row + 1, col - 1));
-            }
-            if (node.right != null) {
-                q.offer(new Tuple(node.right, row + 1, col + 1));
-            }
+            map.get(col).get(row).add(node.val);
+            if (node.left != null)  q.add(new Tuple(node.left, row + 1, col - 1));
+            if (node.right != null) q.add(new Tuple(node.right, row + 1, col + 1));
         }
-        List<List<Integer>> result = new ArrayList<>();
+
         for (TreeMap<Integer, PriorityQueue<Integer>> colMap : map.values()) {
-            List<Integer> verticalLine = new ArrayList<>();
-            for (PriorityQueue<Integer> overlappingNodes : colMap.values()) {
-                while (!overlappingNodes.isEmpty()) {
-                    verticalLine.add(overlappingNodes.poll());
+            List<Integer> list = new ArrayList<>();
+            for (PriorityQueue<Integer> pq : colMap.values()) {
+                while (!pq.isEmpty()) {
+                    list.add(pq.poll());
                 }
             }
-            result.add(verticalLine);
+            res.add(list);
         }
-        return result;
+
+        return res;
     }
 }
