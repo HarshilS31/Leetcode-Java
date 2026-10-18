@@ -8,28 +8,21 @@ class Pair {
 }
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> ans = new ArrayList<>();
-        if (root==null) return ans;
+        List<List<Integer>> res = new ArrayList<>();
+        if(root==null) return res;
         Queue<Pair> q = new LinkedList<>();
         q.add(new Pair(root,0));
-        while(q.size()>0) {
-            ArrayList<Integer> arr = new ArrayList<>();
+        while(!q.isEmpty()) {
             Pair top = q.poll();
+            TreeNode currNode = top.node;
             int currLevel=top.level;
-            if(currLevel==ans.size()) {
-                ans.add(new ArrayList<>());
+            if(currLevel==res.size()){
+                res.add(new ArrayList<>());
             }
-            ans.get(currLevel).add(top.node.val);
-            if(top.node.left!=null) {
-                q.add(new Pair(top.node.left,currLevel+1));
-            }
-            if(top.node.right!=null) {
-                q.add(new Pair(top.node.right,currLevel+1));
-            }
+            res.get(currLevel).add(currNode.val);
+            if(currNode.left!=null) q.add(new Pair(currNode.left,currLevel+1));
+            if(currNode.right!=null) q.add(new Pair(currNode.right,currLevel+1));
         }
-        return ans;
-
-
-        
+        return res;
     }
 }
