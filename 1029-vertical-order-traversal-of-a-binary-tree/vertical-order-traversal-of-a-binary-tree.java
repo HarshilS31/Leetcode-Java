@@ -13,11 +13,7 @@ class Solution {
     public List<List<Integer>> verticalTraversal(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) return res;
-
-        // BFS Queue
         Queue<Tuple> q = new LinkedList<>();
-        
-        // map: col -> (row -> PriorityQueue of node values)
         TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new TreeMap<>();
 
         q.add(new Tuple(root, 0, 0));
