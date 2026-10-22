@@ -1,22 +1,16 @@
 class Solution {
     public boolean canPartition(int[] nums) {
-        int totalSum=0;
-        for(int n:nums) totalSum+=n;
-        if(totalSum%2==1) return false;
-        Boolean [][] dp = new Boolean[nums.length][(totalSum/2)+1];
-        return checkSum(nums,dp,totalSum/2,0,nums.length);
-        
+        int n = nums.length;
+        int sum=0;
+        for(int num:nums) sum+=num;
+        Boolean[][] dp = new Boolean[n][(sum/2)+1];
+        if(sum%2==1) return false;
+        return targetSum(nums,0,sum/2,dp);
     }
-    public static boolean checkSum(int[] arr, Boolean[][] dp, int sum, int i, int n) {
-        if (sum == 0) return true;
-        if (i >= n || sum < 0) return false;
-        if (dp[i][sum] != null) return dp[i][sum];
-        if (arr[i] > sum) {
-            return dp[i][sum] = checkSum(arr, dp, sum, i + 1, n);
-        }
-        boolean pick = checkSum(arr, dp, sum - arr[i], i + 1, n);
-        boolean skip = checkSum(arr, dp, sum, i + 1, n);
-
-        return dp[i][sum] = (pick || skip);
+    public boolean targetSum(int[] nums,int i,int target,Boolean[][] dp) {
+        if(target<0 || i==nums.length) return false;
+        if(target==0) return true;
+        if(dp[i][target]!=null) return dp[i][target];
+        return dp[i][target]=targetSum(nums,i+1,target,dp) || targetSum(nums,i+1,target-nums[i],dp);
     }
 }
