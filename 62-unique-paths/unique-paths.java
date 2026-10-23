@@ -12,14 +12,4 @@ class Solution {
         return dp[m-1][n-1];
 
     }
-    public int paths(int r,int c,int m ,int n,int[][] dp) {
-        if(r==0 || c==0) return 1;
-        if(r<0 || c<0) return 0;
-        if(dp[r][c]!=-1) return dp[r][c];
-        return dp[r][c]=paths(r-1,c,m,n,dp)+paths(r,c-1,m,n,dp);
-
-
-
-
-    }
 }
