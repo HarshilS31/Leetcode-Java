@@ -1,5 +1,4 @@
 class Solution {
-    int[][] directions = {{0,1},{0,-1},{-1,0},{1,0}};
     public int countIslands(int[][] grid, int k) {
         int m = grid.length;
         int n = grid[0].length;
@@ -20,15 +19,11 @@ class Solution {
         if(grid[i][j]==0) return 0;
         visited[i][j]=true;
         long currSum = grid[i][j];
-        for(int[] d:directions) {
-            int x = i+d[0];
-            int y = j+d[1];
-            currSum+=dfs(grid,x,y,visited);
-            
-        }
+        currSum+=dfs(grid,i+1,j,visited);
+        currSum+=dfs(grid,i-1,j,visited);
+        currSum+=dfs(grid,i,j+1,visited);
+        currSum+=dfs(grid,i,j-1,visited);
         return currSum;
-
-
     }
 
 }
