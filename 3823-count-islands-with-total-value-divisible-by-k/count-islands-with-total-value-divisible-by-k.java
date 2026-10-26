@@ -16,15 +16,15 @@ class Solution {
         return reqIslands;
     }
     public long dfs(int[][] grid,int i,int j,boolean[][] visited) {
+        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || visited[i][j] || grid[i][j]==0) return 0;
         if(grid[i][j]==0) return 0;
         visited[i][j]=true;
         long currSum = grid[i][j];
         for(int[] d:directions) {
             int x = i+d[0];
             int y = j+d[1];
-            if(x>=0 && y>=0 && x<grid.length && y<grid[0].length && !visited[x][y]) {
-                currSum+=dfs(grid,x,y,visited);
-            }
+            currSum+=dfs(grid,x,y,visited);
+            
         }
         return currSum;
 
