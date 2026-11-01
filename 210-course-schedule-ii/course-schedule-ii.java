@@ -1,34 +1,28 @@
 class Solution {
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
-        List<Integer>[] adj = new ArrayList[numCourses];
-        int[] inDegree = new int[numCourses];
+    public int[] findOrder(int n, int[][] courses) {
         List<Integer> ans = new ArrayList<>();
-        for (int i = 0; i < numCourses; i++) {
-            adj[i] = new ArrayList<>();
+        int[] inDegree = new int[n];
+        List<Integer>[] adj = new List[n];
+        for (int i = 0; i < n; i++) adj[i] = new ArrayList<>();
+
+        for (int[] k : courses) {
+            adj[k[1]].add(k[0]);
+            inDegree[k[0]]++;
         }
-        for (int[] edge : prerequisites) {
-            adj[edge[1]].add(edge[0]);
-            inDegree[edge[0]]++;
-        }
-        Queue<Integer> queue = new LinkedList<>();
-        for (int i = 0; i < numCourses; i++) {
-            if (inDegree[i] == 0) {
-                queue.add(i);
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < n; i++) if (inDegree[i] == 0) q.add(i);
+
+        while (!q.isEmpty()) {
+            int top = q.poll();
+            ans.add(top);
+            for (int course : adj[top]) {
+                inDegree[course]--;
+                if (inDegree[course] == 0) q.add(course);
             }
         }
-        while (!queue.isEmpty()) {
-            int current = queue.poll();
-            ans.add(current);    
-            for (int neighbor : adj[current]) {
-                inDegree[neighbor]--;
-                if (inDegree[neighbor] == 0) {
-                    queue.add(neighbor);
-                }
-            }
-        }
-        if (ans.size() != numCourses) {
-            return new int[0];
-        }
-        return ans.stream().mapToInt(Integer::intValue).toArray();
+        if (ans.size() < n) return new int[0];
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) result[i] = ans.get(i);
+        return result;
     }
 }
