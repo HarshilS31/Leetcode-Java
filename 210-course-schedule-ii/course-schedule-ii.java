@@ -1,8 +1,9 @@
 class Solution {
     public int[] findOrder(int n, int[][] courses) {
-        List<Integer> ans = new ArrayList<>();
-        int[] inDegree = new int[n];
         List<Integer>[] adj = new List[n];
+        int[] inDegree = new int[n];
+        int[] res = new int[n];
+        int idx=0;
         for (int i = 0; i < n; i++) adj[i] = new ArrayList<>();
 
         for (int[] k : courses) {
@@ -14,15 +15,13 @@ class Solution {
 
         while (!q.isEmpty()) {
             int top = q.poll();
-            ans.add(top);
+            res[idx++]=top;
             for (int course : adj[top]) {
                 inDegree[course]--;
                 if (inDegree[course] == 0) q.add(course);
             }
         }
-        if (ans.size() < n) return new int[0];
-        int[] result = new int[n];
-        for (int i = 0; i < n; i++) result[i] = ans.get(i);
-        return result;
+        return idx==n ? res : new int[]{};
+
     }
 }
