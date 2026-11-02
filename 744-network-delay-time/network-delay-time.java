@@ -19,7 +19,7 @@ class Solution {
             int[] top = pq.poll();
             int node = top[0];
             int t=top[1];
-            if(t==Integer.MAX_VALUE) continue;
+            // if(t==Integer.MAX_VALUE) continue;
             for(int[] arr:list.get(node)) {
                 int v = arr[0];
                 if(res[v]>t+arr[1]) {
