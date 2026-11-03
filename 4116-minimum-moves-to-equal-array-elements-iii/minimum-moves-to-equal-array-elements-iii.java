@@ -8,7 +8,7 @@ class Solution {
             sum+=num;
         }
         int moves = 0;
-        return Math.abs(sum-(max*n));
+        return (max*n)-sum;
         
 
         
