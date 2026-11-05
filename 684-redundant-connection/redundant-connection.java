@@ -3,13 +3,13 @@ class Solution {
         int n = edges.length;
         int[] res = new int[2];
         int[] parent = new int[n+1];
-        int[] size = new int[n+1];
+        int[] rank = new int[n+1];
         for(int i=1;i<=n;i++) {
             parent[i]=i;
-            size[i]=1;
+            rank[i]=1;
         }
         for(int[] e:edges) {
-            if(!union(e[0],e[1],parent,size)) {
+            if(!union(e[0],e[1],parent,rank)) {
                 res[0]=e[0];
                 res[1]=e[1];
             }
@@ -17,19 +17,19 @@ class Solution {
         return res;
 
     }
-    public boolean union(int u, int v, int[] parent,int[] size) {
+    public boolean union(int u, int v, int[] parent,int[] rank) {
         int rootU = find(u, parent);
         int rootV = find(v, parent);
         if (rootU == rootV) {
             return false;
         }
-        if (size[rootU] < size[rootV]) {
+        if (rank[rootU] < rank[rootV]) {
             parent[rootU] = rootV;
-        } else if (size[rootU] > size[rootV]) {
+        } else if (rank[rootU] > rank[rootV]) {
             parent[rootV] = rootU;
         } else {
             parent[rootV] = rootU;
-            size[rootU]++;
+            rank[rootU]++;
         }
         return true;
     }
