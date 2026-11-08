@@ -1,23 +1,21 @@
 class Solution {
-    static boolean canRemoveAll(int[] types, int[] colors, int[] groupSize) {
+    public boolean canRemoveAll(int[] types, int[] colors, int[] groupSize) {
         int n = types.length;
-        int[] stT = new int[n], stC = new int[n], stCnt = new int[n];
-        int top = -1;
-        for (int i = 0; i < n; i++) {
-            int t = types[i], c = colors[i];
-            if (top >= 0 && stT[top] == t && stC[top] == c) {
-                stCnt[top]++;
-            } else {
-                top++;
-                stT[top] = t;
-                stC[top] = c;
-                stCnt[top] = 1;
+        Stack<int[]> stack = new Stack<>();
+        for(int i=0;i<n;i++) {
+            int t = types[i];
+            int c = colors[i];
+            if(!stack.isEmpty() && stack.peek()[0]==t && stack.peek()[1]==c) {
+                stack.peek()[2]++;
             }
-    
-            if (stCnt[top] == groupSize[t]) {
-                top--; 
+            else {
+                stack.push(new int[]{t,c,1});
+            }
+            if(stack.peek()[2]==groupSize[t]) {
+                stack.pop();
             }
         }
-        return top == -1;
+        return stack.isEmpty();
+
     }
 }
