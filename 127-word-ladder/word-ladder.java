@@ -1,33 +1,38 @@
-class Pair{
-    String word;
-    int level;
-    Pair(String word, int level){
-        this.word=word;
-        this.level=level;
-    }
-}
 class Solution {
-
-    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        LinkedList<Pair> queue = new LinkedList<>();
-        Set<String> wordSet = new HashSet<>(wordList);
-        queue.add(new Pair(beginWord, 1));
-        while(!queue.isEmpty()){
-            Pair curr = queue.remove();
-            if(curr.word.equals(endWord)) return curr.level;
-            for(int i=0; i<curr.word.length(); i++){
-                char[] wordChars = curr.word.toCharArray();
-                for(char c='a'; c<='z'; c++){
-                    wordChars[i]=c;
-                    String newWord = new String(wordChars);
-                    if(wordSet.contains(newWord)){
-                        wordSet.remove(newWord);
-                        queue.add(new Pair(newWord, curr.level+1));
+    class Pair {
+        String s;
+        int level;
+        Pair(String s,int level) {
+            this.s=s;
+            this.level=level;
+        }
+    }
+    public int ladderLength(String beginWord, String endWord, List<String> words) {
+        Set<String> set = new HashSet<>();
+        Queue<Pair> q = new LinkedList<>();
+        for(String s : words) set.add(s);
+        set.remove(beginWord);
+        q.add(new Pair(beginWord,1));
+        while(!q.isEmpty()) {
+            Pair top = q.poll();
+            String s = top.s;
+            int level = top.level;
+            if(s.equals(endWord)) return level;
+            for(int i=0;i<s.length();i++) {
+                for(char c='a';c<='z';c++) {
+                    char[] replacedString = s.toCharArray();
+                    replacedString[i]=c;
+                    String curr = new String(replacedString);
+                    if(set.contains(curr)) {
+                        set.remove(curr);
+                        q.add(new Pair(curr,level+1));
                     }
                 }
             }
         }
         return 0;
+        
+        
+        
     }
 }
-
