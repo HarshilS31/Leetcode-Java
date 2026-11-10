@@ -12,6 +12,7 @@ class Solution {
         for(String s:wordList) set.add(s);
         Queue<Pair> q = new LinkedList<>();
         q.add(new Pair(beginWord,1));
+        set.remove(beginWord);
         while(!q.isEmpty()) {
             Pair top = q.poll();
             String str = top.s;
