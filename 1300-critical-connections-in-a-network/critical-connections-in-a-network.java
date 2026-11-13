@@ -25,13 +25,11 @@ class Solution {
             if(visited[adj_node]==0) {
                 dfs(adj_node,node,adj,visited,insert_T,low_T,bridges);
                 low_T[node]=Math.min(low_T[node],low_T[adj_node]);
-                if(insert_T[node] < low_T[adj_node]) bridges.add(Arrays.asList(node,adj_node));
-
+                if(insert_T[node]<low_T[adj_node]) bridges.add(Arrays.asList(node,adj_node));
             }
             else {
-                low_T[node]=Math.min(low_T[node],low_T[adj_node]);      
+                low_T[node]=Math.min(low_T[node],low_T[adj_node]);
             }
         }
-
     }
 }
