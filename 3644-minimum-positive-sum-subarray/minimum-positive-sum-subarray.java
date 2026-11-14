@@ -12,7 +12,7 @@ class Solution {
                if(currSum>0 && currSum<min) min=currSum;
             }
         }
-        if(min<=0 || min==Integer.MAX_VALUE) return -1;
+        if(min==Integer.MAX_VALUE) return -1;
         return min;
         
     }
