@@ -1,17 +1,15 @@
 class Solution {
+    public Integer prev = null;
     public boolean isValidBST(TreeNode root) {
-        List<Integer> nodes = new ArrayList<>();
-        inorder(root,nodes);
-        for(int i=1;i<nodes.size();i++) {
-            if(nodes.get(i-1)>=nodes.get(i)) return false;
-        }
-        return true;
+        return checkBST(root);
     }
-    public void inorder(TreeNode node,List<Integer> nodes) {
-        if(node==null) return;
-        inorder(node.left,nodes);
-        nodes.add(node.val);
-        inorder(node.right,nodes);
-    }
+    public boolean checkBST(TreeNode root) {
+        if(root==null) return true;
+        if(!checkBST(root.left)) return false;
+        if(prev!=null && root.val<=prev) return false;
+        prev=root.val;
+        return checkBST(root.right);
 
+
+    }
 }
