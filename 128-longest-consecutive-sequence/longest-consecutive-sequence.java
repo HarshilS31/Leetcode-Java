@@ -12,13 +12,13 @@ class Solution {
             if(!set.contains(num-1)) {
                 int currNum = num;
                 int currCount=1;
-                while(set.contains(currNum++)) {
+                while(set.contains(++currNum)) {
                     currCount++;
                 }
                 maxCount = Math.max(currCount,maxCount);
             }
         }
 
-        return maxCount-1;
+        return maxCount;
     }
 }
