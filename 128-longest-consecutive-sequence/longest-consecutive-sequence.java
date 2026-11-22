@@ -9,16 +9,16 @@ class Solution {
         }
         int maxCount=1;
         for(int num:set) {
-            int currCount=1;
             if(!set.contains(num-1)) {
                 int currNum = num;
-                while(set.contains(currNum+1)) {
+                int currCount=1;
+                while(set.contains(currNum++)) {
                     currCount++;
-                    currNum++;
                 }
+                maxCount = Math.max(currCount,maxCount);
             }
-            maxCount = Math.max(currCount,maxCount);
         }
-        return maxCount;
+
+        return maxCount-1;
     }
 }
